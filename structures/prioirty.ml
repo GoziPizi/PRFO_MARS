@@ -1,41 +1,35 @@
-module Priority = 
-    struct 
-        type 'a t = 
-            | Empty
-            | Node of 'a * int * 'a t list
+module Priority(Element : sig type t val compare : t -> t -> int end) : PRIOQUEUE with type element = Element.t =
+  struct
+    type element = Element.t
 
-        exception Empty_queue
+    type prio_element = int * element 
 
-        exception Not_found
+    type t = 
+        | Empty 
+        | Node of prio_element * t list 
 
-        let empty = Empty 
+    let empty = Empty 
 
-        let singleton e p = Node(e,p,[])
+    let is_empty pq = pq = Empty
 
-        let find_min file = match file with 
-            | Empty -> Empty_queue
-            | Node of (e,_,_) -> e
+    let rec merge p1 p2 = 
+        match p1,p2 with 
+        |Empty, p 
+        |p, Empty -> p 
+        |Node((p1,e1),l1),Node((p2,e2),l2) -> 
+            if p1 <= p2 then 
+                Node((p1,e1),(p2,e2)::l1::l2)
+            else
+                Node((p2,e2),(p1,e1)::l1::l2)
 
-        let delete_min file = match file with 
-            | Empty -> Empty
-            | Node of (_,_,[]) -> Empty 
-            | Node of (_,_,l) -> meld_list l 
+    let insert p e pq = merge pq Node((p,e),[])
 
-        let meld f1 f2 = 
-            if is_empty f1 then f2 
-            else if is_empty f2 then f1 
-            else 
-                match f1,f2 with Node of (e1,p1,l1), Node(e2,p2,l2) -> 
-                    if p1 < p2 then Node(e1,p1,(singleton e2 p2)::l1::l2)
-                    else Node(e2,p2,(singleton e1 p1)::l1::l2)
+    let find_min pq = match pq with 
+        Empty -> Empty_queue
+        |Node((_,e),_) -> e 
 
-        let meld_list l = 
-            List.fold_left (meld) Empty l
+    let delete_min pq = match pq with 
+        Empty -> Empty 
+        |Node((p,e),l) -> List.fold_left merge Empty l
 
-        let insert e p f = 
-            meld (singleton e p) f
-
-        
-
-          
-    end
+  end
