@@ -10,6 +10,9 @@ module Priority =
             if prio <= p
             then Node(prio, elt, insert right p e, left)
             else Node(p, e, insert right prio elt, left)
+      let is_empty = function 
+        Empty -> true
+        |_ -> false
       exception Queue_is_empty
       let rec delete_min = function
           Empty -> raise Queue_is_empty

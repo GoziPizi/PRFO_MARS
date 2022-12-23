@@ -5,15 +5,21 @@
 #use "exercice6.ml";;
 *)
 
-open QCheck
+(* open QCheck *)
 open Priority
 
-(**Faire les tests unitaires *)
 (**Liste des tests  *)
+(**
+    Is_Empty_Empty_Queue
 
+ *)
+
+let _ = Printf.printf "Test Is_Empty_Empty_Queue\n"
+let _ = assert (Priority.is_empty (Priority.empty))
+let _ = Printf.printf "Succes\n"
 
 (**Priority based testing *)
-
+(* 
 exception Empty_queue
 
 let create = [] 
@@ -79,4 +85,4 @@ let rec interp_agree state pq cmd_list = match cmd_list with
 
 let property_priority cs = interp_agree (create ()) (Priority.empty) cs
 let test_property_priority = QCheck.(Test.make ~count:1000(arb_cmds) property_priority)
-let _ = QCheck_runner.run_tests[test_property_priority]
+let _ = QCheck_runner.run_tests[test_property_priority] *)
