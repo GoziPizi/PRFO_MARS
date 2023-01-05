@@ -11,12 +11,26 @@ open Priority
 (**Liste des tests  *)
 (**
     Is_Empty_Empty_Queue
-
+    Not_Empty_Add
+    Empty_Add_Pop
  *)
 
-let _ = Printf.printf "Test Is_Empty_Empty_Queue\n"
-let _ = assert (Priority.is_empty (Priority.empty))
-let _ = Printf.printf "Succes\n"
+let tests = [
+    ("Test Is_Empty_Empty_Queue",Priority.is_empty (Priority.empty));
+    (* ("Test Not_Empty_Add",Priority.is_empty (Priority.insert Priority.empty 1 1 ) = false) *)
+    ("Test Empty_Add_Pop",Priority.is_empty (Priority.delete_min (Priority.insert Priority.empty 1 1)))
+]
+
+
+let iter_function couple = 
+    let (name,value) = couple in begin 
+        Printf.printf "\n\n%s" name;
+        Printf.printf "\n" ; 
+        assert value ;
+        Printf.printf "----\n";
+        Printf.printf "Succès\n" end
+
+let _ = List.iter iter_function tests
 
 (**Priority based testing *)
 (* 
