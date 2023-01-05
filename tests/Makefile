@@ -1,6 +1,6 @@
 all : testPriority.ml priority.cmo graph.cmo graph.cmi 
 	ocamlc -o testPriority priority.cmo testPriority.ml 
-	ocamlc -o testGraph graph.cmo testGraph.ml
+	ocamlc -o testGraph priority.cmo graph.cmo testGraph.ml
 
 priority.cmo : priority.cmi 
 	ocamlc -c ../structures/priority.ml -o ../tests/priority.cmo

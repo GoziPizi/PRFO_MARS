@@ -28,3 +28,4 @@ On doit tester toutes ces valeurs de retour.
 
 
 #### Utilisation 
+Je n'ai pas reussi a faire en sorte que le makefile se mette correctement a jour sachant qu'il y a des fichiers dans d'autres dossiers donc j'ai préféré laisser ainsi, mais avant de recompiler, si des changements ont été fait, il faut faire un clean. 
